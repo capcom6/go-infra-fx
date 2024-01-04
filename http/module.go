@@ -13,6 +13,7 @@ var Module = fx.Module(
 	}),
 	fx.Provide(
 		New,
+		NewServer,
 	),
 )
 
