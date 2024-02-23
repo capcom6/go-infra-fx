@@ -7,7 +7,6 @@ import (
 	"github.com/capcom6/go-infra-fx/http/statuscode"
 	"github.com/gofiber/contrib/fiberzap/v2"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 )
 
@@ -40,7 +39,6 @@ func New(params Params) (*fiber.App, error) {
 	}
 
 	api := app.Group("/api")
-	api.Use(cors.New())
 	api.Use(jsonify.New())
 	for _, handler := range params.ApiHandlers {
 		handler.Register(api)
