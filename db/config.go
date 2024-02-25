@@ -1,7 +1,7 @@
 package db
 
 var ConfigDefault = Config{
-	Dialect:  "mysql",
+	Dialect:  DialectMySQL,
 	Host:     "localhost",
 	Port:     3306,
 	User:     "root",
@@ -10,7 +10,8 @@ var ConfigDefault = Config{
 }
 
 type Config struct {
-	Dialect  string
+	Dialect  Dialect
+	DSN      string
 	Host     string
 	Port     int
 	User     string

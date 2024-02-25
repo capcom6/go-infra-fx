@@ -36,11 +36,11 @@ func Migrate(params GooseMigrateParams) error {
 		cmd = params.Args[0]
 	}
 
-	if err := goose.SetDialect(params.Config.Dialect); err != nil {
+	if err := goose.SetDialect(string(params.Config.Dialect)); err != nil {
 		return err
 	}
 
-	migrationsPath := "migrations/" + params.Config.Dialect
+	migrationsPath := "migrations/" + string(params.Config.Dialect)
 
 	for _, fs := range gooseStorages {
 		goose.SetBaseFS(fs)
