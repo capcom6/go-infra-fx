@@ -29,6 +29,9 @@ func New(params Params) (*gorm.DB, error) {
 func makeConfig(params Params) *gorm.Config {
 	log := zapgorm2.New(params.Logger)
 	log.LogLevel = logger.Info
+	if params.Config.Debug {
+		log.LogLevel = logger.Info + 1
+	}
 	log.SetAsDefault()
 
 	return &gorm.Config{

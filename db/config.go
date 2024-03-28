@@ -7,6 +7,8 @@ var ConfigDefault = Config{
 	User:     "root",
 	Password: "",
 	Database: "db",
+	Timezone: "UTC",
+	Debug:    false,
 }
 
 type Config struct {
@@ -18,6 +20,7 @@ type Config struct {
 	Password string
 	Database string
 	Timezone string
+	Debug    bool
 }
 
 // Helper function to set default values
