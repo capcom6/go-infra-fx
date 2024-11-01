@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"net/url"
-	"time"
 
 	mysql "github.com/go-sql-driver/mysql"
 )
@@ -22,9 +21,10 @@ func NewSQL(config Config) (*sql.DB, error) {
 
 	switch config.Dialect {
 	case DialectMySQL, DialectPostgres:
-		db.SetConnMaxIdleTime(3 * time.Minute)
-		db.SetMaxOpenConns(16)
-		db.SetMaxIdleConns(16)
+		db.SetConnMaxIdleTime(config.ConnMaxIdleTime)
+		db.SetConnMaxLifetime(config.ConnMaxLifetime)
+		db.SetMaxOpenConns(config.MaxOpenConns)
+		db.SetMaxIdleConns(config.MaxIdleConns)
 	case DialectSQLite3:
 		db.SetMaxOpenConns(1)
 	}
