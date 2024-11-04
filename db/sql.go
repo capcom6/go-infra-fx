@@ -20,7 +20,7 @@ func NewSQL(config Config) (*sql.DB, error) {
 	}
 
 	switch config.Dialect {
-	case DialectMySQL, DialectPostgres:
+	case DialectMariaDB, DialectMySQL, DialectPostgres:
 		db.SetConnMaxIdleTime(config.ConnMaxIdleTime)
 		db.SetConnMaxLifetime(config.ConnMaxLifetime)
 		db.SetMaxOpenConns(config.MaxOpenConns)
