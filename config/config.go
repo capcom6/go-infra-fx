@@ -32,6 +32,10 @@ func loadFromYaml(config any) error {
 		configPath = envPath
 	}
 
+	if _, err := os.Stat(configPath); os.IsNotExist(err) {
+		return nil
+	}
+
 	yamlFile, err := os.ReadFile(configPath)
 	if err != nil {
 		return err
