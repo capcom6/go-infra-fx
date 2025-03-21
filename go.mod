@@ -1,6 +1,9 @@
 module github.com/capcom6/go-infra-fx
 
-go 1.23
+go 1.23.0
+
+toolchain go1.23.2
+
 require (
 	github.com/go-playground/validator/v10 v10.16.0
 	github.com/go-sql-driver/mysql v1.7.1

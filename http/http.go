@@ -19,14 +19,15 @@ const (
 func New(params Params) (*fiber.App, error) {
 	config := configDefault(params.Config)
 	app := fiber.New(fiber.Config{
-		ReadTimeout:             ReadTimeout,
-		WriteTimeout:            WriteTimeout,
-		IdleTimeout:             IdleTimeout,
 		DisableStartupMessage:   true,
-		ErrorHandler:            errorHandler,
-		ProxyHeader:             "X-Forwarded-For",
+		EnableIPValidation:      true,
 		EnableTrustedProxyCheck: len(config.Proxies) > 0,
+		ErrorHandler:            errorHandler,
+		IdleTimeout:             IdleTimeout,
+		ProxyHeader:             "X-Forwarded-For",
+		ReadTimeout:             ReadTimeout,
 		TrustedProxies:          config.Proxies,
+		WriteTimeout:            WriteTimeout,
 	})
 
 	app.Use(recover.New())
