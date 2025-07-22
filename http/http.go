@@ -11,9 +11,8 @@ import (
 )
 
 const (
-	ReadTimeout  = 5 * time.Second
-	WriteTimeout = 5 * time.Second
-	IdleTimeout  = 60 * time.Second
+	ReadTimeout = 5 * time.Second
+	IdleTimeout = 60 * time.Second
 )
 
 func New(params Params) (*fiber.App, error) {
@@ -27,7 +26,7 @@ func New(params Params) (*fiber.App, error) {
 		ProxyHeader:             "X-Forwarded-For",
 		ReadTimeout:             ReadTimeout,
 		TrustedProxies:          config.Proxies,
-		WriteTimeout:            WriteTimeout,
+		WriteTimeout:            config.WriteTimeout,
 	})
 
 	app.Use(recover.New())
