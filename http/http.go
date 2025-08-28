@@ -31,6 +31,19 @@ func New(params Params) (*fiber.App, error) {
 
 	app.Use(recover.New())
 	app.Use(fiberzap.New(fiberzap.Config{
+		Next: func(c *fiber.Ctx) bool {
+			p := c.Path()
+			// Normalize trailing slash
+			for len(p) > 1 && p[len(p)-1] == '/' {
+				p = p[:len(p)-1]
+			}
+			switch p {
+			case "/health", "/metrics", "/healthz", "/readyz", "/livez":
+				return true
+			default:
+				return false
+			}
+		},
 		SkipBody: func(c *fiber.Ctx) bool {
 			return c.Response().StatusCode() < 400
 		},
