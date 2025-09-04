@@ -8,6 +8,7 @@ import (
 	"github.com/gofiber/contrib/fiberzap/v2"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/gofiber/fiber/v2/middleware/requestid"
 )
 
 const (
@@ -30,6 +31,7 @@ func New(params Params) (*fiber.App, error) {
 	})
 
 	app.Use(recover.New())
+	app.Use(requestid.New())
 	app.Use(fiberzap.New(fiberzap.Config{
 		Next: func(c *fiber.Ctx) bool {
 			p := c.Path()
@@ -48,7 +50,7 @@ func New(params Params) (*fiber.App, error) {
 			return c.Response().StatusCode() < 400
 		},
 		Logger: params.Logger,
-		Fields: []string{"latency", "status", "method", "url", "ip", "ua", "body", "error"},
+		Fields: []string{"requestId", "latency", "status", "method", "url", "ip", "ua", "body", "error"},
 	}))
 
 	for _, handler := range params.RootHandlers {
