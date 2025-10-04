@@ -2,15 +2,13 @@ package http
 
 import (
 	"github.com/capcom6/go-infra-fx/cli"
+	"github.com/capcom6/go-infra-fx/fxutil"
 	"go.uber.org/fx"
-	"go.uber.org/zap"
 )
 
 var Module = fx.Module(
 	"http",
-	fx.Decorate(func(log *zap.Logger) *zap.Logger {
-		return log.Named("http")
-	}),
+	fxutil.WithNamedLogger("http"),
 	fx.Provide(
 		New,
 		NewServer,
