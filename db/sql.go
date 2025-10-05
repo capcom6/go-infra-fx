@@ -9,13 +9,15 @@ import (
 	mysql "github.com/go-sql-driver/mysql"
 )
 
+func init() {
+	if err := mysql.SetLogger(log.Default()); err != nil {
+		log.Printf("failed to set mysql logger: %v", err)
+	}
+}
+
 func NewSQL(config Config) (*sql.DB, error) {
 	config = configDefault(config)
 	dsn := makeDSN(config)
-
-	if err := mysql.SetLogger(log.Default()); err != nil {
-		return nil, fmt.Errorf("failed to set mysql logger: %w", err)
-	}
 
 	db, err := sql.Open(string(config.Dialect), dsn)
 	if err != nil {
