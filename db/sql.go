@@ -13,10 +13,13 @@ func NewSQL(config Config) (*sql.DB, error) {
 	config = configDefault(config)
 	dsn := makeDSN(config)
 
-	mysql.SetLogger(log.Default())
+	if err := mysql.SetLogger(log.Default()); err != nil {
+		return nil, fmt.Errorf("failed to set mysql logger: %w", err)
+	}
+
 	db, err := sql.Open(string(config.Dialect), dsn)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to open database: %w", err)
 	}
 
 	switch config.Dialect {
