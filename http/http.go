@@ -1,6 +1,7 @@
 package http
 
 import (
+	"strings"
 	"time"
 
 	"github.com/capcom6/go-infra-fx/http/jsonify"
@@ -39,12 +40,8 @@ func New(params Params) (*fiber.App, error) {
 			for len(p) > 1 && p[len(p)-1] == '/' {
 				p = p[:len(p)-1]
 			}
-			switch p {
-			case "/health", "/metrics", "/healthz", "/readyz", "/livez":
-				return true
-			default:
-				return false
-			}
+
+			return strings.HasPrefix(p, "/health") || strings.HasPrefix(p, "/metrics")
 		},
 		SkipBody: func(c *fiber.Ctx) bool {
 			return c.Response().StatusCode() < 400
