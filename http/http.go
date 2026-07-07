@@ -28,6 +28,7 @@ func New(params Params) (*fiber.App, error) {
 		ProxyHeader:             "X-Forwarded-For",
 		ReadTimeout:             ReadTimeout,
 		TrustedProxies:          config.Proxies,
+		UnescapePath:            true,
 		WriteTimeout:            config.WriteTimeout,
 	})
 
